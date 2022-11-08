@@ -22,6 +22,7 @@ public class WeightFish : MonoBehaviour
     bool safetyacheived = false;
 
     HingeJoint2D[] JointTodispose;
+    Rigidbody2D rb;
     private void Awake()
     {
         
@@ -29,6 +30,7 @@ public class WeightFish : MonoBehaviour
     private void Start()
     {
         OnFishInfoBradcast?.Invoke(this);
+        rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
@@ -88,6 +90,8 @@ public class WeightFish : MonoBehaviour
         {
             Debug.Log("Fish fallen");
             OnFishFallen?.Invoke(this);
+            rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
         }
         else if (collision.transform.tag == "Enemy")
         {

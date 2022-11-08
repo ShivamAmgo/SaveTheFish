@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 1393351480654481561}
   - component: {fileID: 1393351480654481562}
   - component: {fileID: 2427423388904902040}
-  m_Layer: 0
+  - component: {fileID: -2691127459033613128}
+  - component: {fileID: 2680199660145788748}
+  m_Layer: 3
   m_Name: Link
   m_TagString: Link
   m_Icon: {fileID: 0}
@@ -103,7 +105,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0.5
   m_AngularDrag: 0.25
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 18216637c86c9e940b997dab79ae3609, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -131,8 +133,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 23.5
-    m_UpperAngle: -23.5
+    m_LowerAngle: -60
+    m_UpperAngle: 60
 --- !u!58 &2427423388904902040
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -149,6 +151,34 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.12
+--- !u!58 &-2691127459033613128
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393351480654481564}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.13
+--- !u!114 &2680199660145788748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393351480654481564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69026e12fb240094788edc58770e17e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2243924459745055373
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +190,7 @@ GameObject:
   - component: {fileID: 2741768729096706455}
   - component: {fileID: 506866525749163066}
   - component: {fileID: 68463463361699164}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2243924459745055373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -222,7 +252,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0.1, z: 0}
   - {x: 0, y: 0, z: 0}

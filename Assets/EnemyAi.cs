@@ -72,7 +72,7 @@ public class EnemyAi : MonoBehaviour
         TargetsToAttack.Add(FallenFish);
         Target = TargetsToAttack[0].transform;
         
-       
+       if(Target!=TargetsToAttack[0])
         RotateTowardsTarget();
        
         
@@ -93,7 +93,7 @@ public class EnemyAi : MonoBehaviour
     }
     void RotateTowardsTarget()
     {
-
+        
          Dir= (Target.position - transform.position).normalized;
 
         Vector3 forward = transform.TransformDirection(Vector3.right);
