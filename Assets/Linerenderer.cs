@@ -20,15 +20,15 @@ public class Linerenderer : MonoBehaviour
     }
     private void Update()
     {
-        if (ConnectingPoints[0] == null) 
+        if (ConnectingPoints[0] == null || ConnectingPoints[1] == null) 
         {
             lr.gameObject.SetActive(false);
             return;
-        } 
-            for (int i = 0; i < ConnectingPoints.Length; i++)
-            {
-                lr.SetPosition(i, ConnectingPoints[i].position);
-            }
+        }
+        for (int i = 0; i < ConnectingPoints.Length; i++)
+        {
+            lr.SetPosition(i, ConnectingPoints[i].position);
+        }
         
     }
   

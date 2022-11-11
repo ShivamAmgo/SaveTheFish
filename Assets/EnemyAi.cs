@@ -56,7 +56,7 @@ public class EnemyAi : MonoBehaviour
     }
     public void AttackTrigger()
     {
-        Debug.Log(AttackRegion.isActiveAndEnabled + " region");
+        //Debug.Log(AttackRegion.isActiveAndEnabled + " region");
         if (AttackRegion.isActiveAndEnabled)
         {
             AttackRegion.enabled = false;
@@ -99,7 +99,7 @@ public class EnemyAi : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.right);
         //Vector3 toOther = Target.position - transform.position;
         float dotproduct = Vector3.Dot(forward, Dir);
-        Debug.Log(dotproduct);
+        //Debug.Log(dotproduct);
         if (dotproduct < 0)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
