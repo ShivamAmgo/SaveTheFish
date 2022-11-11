@@ -46,7 +46,7 @@ public class EnemyAi : MonoBehaviour
         {
             Target = TargetsToAttack[0].transform;
             RotateTowardsTarget();
-            enemyState = EnemyState.Chase;
+            
         }
             
         else
@@ -70,12 +70,14 @@ public class EnemyAi : MonoBehaviour
     {
         if (TargetsToAttack.Contains(FallenFish)) return;
         TargetsToAttack.Add(FallenFish);
-        Target = TargetsToAttack[0].transform;
         
-       if(Target!=TargetsToAttack[0])
-        RotateTowardsTarget();
-       
-        
+
+        if (Target != TargetsToAttack[0])
+        {
+            Target = TargetsToAttack[0].transform;
+            RotateTowardsTarget();
+        }
+
         if (enemyState != EnemyState.Chase)
             enemyState = EnemyState.Chase;
 
@@ -102,10 +104,10 @@ public class EnemyAi : MonoBehaviour
         //Debug.Log(dotproduct);
         if (dotproduct < 0)
         {
-            transform.eulerAngles = new Vector3(0, 180, 0);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y+180, 0);
         }
-        else
-            transform.eulerAngles = Vector3.zero;
+        //else
+            //transform.eulerAngles = Vector3.zero;
     }
     void Chase()
     {
@@ -145,6 +147,8 @@ public class EnemyAi : MonoBehaviour
     private void OnDestroy()
     {
         WeightFish.OnFishFallen -= FallenFishCheck;
+        
+        WeightFish.onFishDead -= OnFishKilled;
         //WeightFish.OnFishInfoBradcast -= AcquireTargetFishInfo;
     }
     

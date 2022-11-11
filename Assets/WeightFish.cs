@@ -46,6 +46,13 @@ public class WeightFish : MonoBehaviour
         joint.connectedBody = RB;
         joint.anchor = Vector2.zero;
         joint.connectedAnchor = new Vector2(0, AnchorOffset);
+        JointAngleLimits2D limits = joint.limits;
+        limits.min = -30;
+        limits.max = 30;
+        joint.limits = limits;
+        
+        joint.useLimits = true;
+        
         JointTodispose = gameObject.GetComponents<HingeJoint2D>();
     }
    
@@ -62,6 +69,7 @@ public class WeightFish : MonoBehaviour
     void SaveFish()
     {
         safetyacheived = true;
+        if(JointTodispose==null || JointTodispose.Length!>=0)return;
         for (int i = 0; i < JointTodispose.Length; i++)
         {
             JointTodispose[i].enabled = false;
@@ -74,7 +82,7 @@ public class WeightFish : MonoBehaviour
         //ParticleSystem.Particle.d
         
         DieEffect.Emit(5);
-        
+        onFishDead?.Invoke(this);
         yield return new WaitForSeconds(0.25f);
         Destroy(gameObject);
     }
@@ -113,7 +121,7 @@ public class WeightFish : MonoBehaviour
     }
     private void OnDestroy()
     {
-        onFishDead?.Invoke(this);
+        
     }
 
 
