@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +7,70 @@ public class Rope : MonoBehaviour
 {
     [SerializeField] Rigidbody2D Hook;
     [SerializeField] GameObject LinkNodePrefab;
-    [SerializeField] int RopesCount=1;
+    [SerializeField] public int RopesCount=1;
     //[SerializeField] float OffsetLink=-0.3f;
     [SerializeField] int LinkCount = 8;
-    public WeightFish weightFish;
-    
+    public WeightFish weightFishobj;
+    private bool IsFishWithROpe = false;
+    private List<GameObject> AllLinks = new List<GameObject>();
+    private bool LinksGenerated = false;
+    private WeightFish ThisWeightFish;
+    private bool Reparentable = true;
+    private void Awake()
+    {
+        WeightFish.OnFishFreeFall += ReparentFish;
+    }
+
     private void Start()
     {
-        GenerateRope();
+        if (transform.tag=="Fish")
+        {
+            ThisWeightFish = GetComponent<WeightFish>();
+            Debug.Log(ThisWeightFish.name);
+        }
+        
+        GenerateRope(weightFishobj);
     }
-  
-    void GenerateRope()
+
+
+   
+
+    public List<GameObject> GetAllLinks()
     {
-        if (RopesCount <=0) return;
+        return AllLinks;
+    }
+    //reparenting fish on freefall
+    void ReparentFish(WeightFish Freefallingfish)
+    {
+
+
+        //Freefallingfish.Ropescript.RopesCount++;
+        if (ThisWeightFish==null)
+        {
+            //Debug.Log(transform.name);
+            return;
+            
+        }
+        if (ThisWeightFish.RootParents.Contains(Freefallingfish.transform))
+        {
+            
+            ThisWeightFish.RootParents.Remove(Freefallingfish.transform);
+            Debug.Log(ThisWeightFish.name+"With Size "+ThisWeightFish.RootParents.Count+" Contains "+Freefallingfish.name+
+                      "  As Parent with size"+Freefallingfish.RootParents.Count );
+            RopesCount++;
+            GenerateRope(Freefallingfish);
+            
+            Freefallingfish.RootParents.Remove(ThisWeightFish.transform);
+        }
+    }
+    public void GenerateRope(WeightFish weightFishReparented)
+    {
+        if (RopesCount <= 0 || !Reparentable)
+        {
+            Debug.Log("Rope Returned");
+            return;
+        }
+
         Rigidbody2D PreviousRb = Hook;
         
         for (int i = 0; i < LinkCount; i++)
@@ -30,8 +82,10 @@ public class Rope : MonoBehaviour
             
             if (i == LinkCount - 1)
             {
-                if (weightFish == null) return;
-                weightFish.ConnectFishToRope(GeneratedLink.GetComponent<Rigidbody2D>());
+                if (weightFishReparented == null) return;
+                
+               
+                weightFishReparented.ConnectFishToRope(GeneratedLink.GetComponent<Rigidbody2D>());
                 //return;
             }
             //if (i! > 1) continue;
@@ -41,6 +95,18 @@ public class Rope : MonoBehaviour
             points[1] = GeneratedLink.transform;
             GeneratedLink.GetComponentInChildren<Linerenderer>().SetupLine(points);
             PreviousRb = GeneratedLink.GetComponent<Rigidbody2D>();
+            if (!LinksGenerated)
+            {
+                AllLinks.Add(GeneratedLink);
+            }
+            
         }
+
+        LinksGenerated = true;
+    }
+
+    private void OnDestroy()
+    {
+        WeightFish.OnFishFreeFall -= ReparentFish;
     }
 }

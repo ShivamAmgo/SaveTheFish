@@ -8,6 +8,8 @@ TagManager:
   - Bowl
   - Ground
   - Enemy
+  - Fish
+  - Rope
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Links
   - Water
   - UI
-  - 
+  - fish
   - 
   - 
   - 

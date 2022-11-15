@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class LinkDestroyer : MonoBehaviour
 {
+    public  delegate void AfterDestroyedinfo(Transform RootParent) ;
+
+    public static event AfterDestroyedinfo Ondestroy;
     private HingeJoint2D joint;
+    
     private void Start()
     {
         joint = GetComponent<HingeJoint2D>();
@@ -27,8 +31,17 @@ public class LinkDestroyer : MonoBehaviour
             Debug.Log("HitGround");
             Destroy(gameObject);
         }
-        else if(collision.transform.tag=="Bowl")
-        Destroy(gameObject);
+        else if (collision.transform.tag == "Bowl")
+        {
+            
+            Destroy(gameObject);
+        }
+        
 
+    }
+
+    private void OnDestroy()
+    {
+        Ondestroy?.Invoke(transform.root);
     }
 }
